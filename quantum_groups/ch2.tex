@@ -74,7 +74,7 @@
         
         生成元:
         \[
-            e_i, f_im, h_i \quad (1 \leq i \leq n-1)
+            e_i, f_i, h_i \quad (1 \leq i \leq n-1)
         \]
         
         基本関係:
@@ -107,29 +107,65 @@
         \end{Def}
         
         \begin{Prop}
-            自由リー環$L(V)$は普遍写像性質を満たす．
+            自由リー環$L(X_i \mid i \in I)$は普遍写像性質を満たす．
             \[
             \begin{tikzpicture}[scale = 1.5]
-                \node (L) {$L(V)$};
+                \node (L) {$L(X_i \mid i \in I)$};
                 \node  at (3,0) (EL) {$L$};
-                \node[below right  = of L] (U) {$V$}; 
+                \node[below = of L] (U) {$V$}; 
                 
-                \draw [->] (L) -- node[above] {$\phi$}(EL);
+                \draw [->] (L) -- node[above] {$\exists 1 f$}(EL);
                 \draw [->] (U) -- node[below left] {} (L);
-                \draw [->] (U) -- node[below right] {$\psi$} (EL);
+                \draw [->] (U) -- node[below right] {$\phi$} (EL);
             \end{tikzpicture}
-        \]
+            \]
         \end{Prop}
+        \begin{proof}
+            $f$は存在すれば一意的．
+            実際，hom $f, g: L(X_i \mid i \in I) \to L$が上の可換図式を満たすとすると,
+            \[
+                f(X_i) = \phi(X_i) = g(X_i)
+            \]
+            で生成元上の値が一致するので，$f = g$.
+            
+            次に存在を示そう．
+            $\hat{f}:T(V) \to U(L)$を自然な準同型で定める．
+            $\epsilon$は包含写像．
+            すると
+            \[
+                \hat{f}(L(X_i \mid i \in I)) \subset 
+                \hat{L} := \langle\hat{f}(X_i) \mid i \in I \rangle 
+                \subset U(L).
+            \]
+            特に，
+            \[
+                \hat{f}(L(X_i \mid i \in I)) \subset L
+            \]
+            よって，$\hat{f}$を制限すれば良い．
+            \[
+            \begin{tikzpicture}[scale = 1.5]
+                \node (T) {$T(V)$};
+                \node[below = of T] (LX) {$L(X_i \mid i \in I)$}; 
+                \node  at (3,0) (U) {$U(L)$};
+                \node[below  = of U] (L) {$L$}; 
+                
+                \draw [->] (T) -- node[above] {$\hat{f}$}(U);
+                \draw [->] (L) -- node[right] {$\epsilon$} (U);
+                \draw [->] (LX) -- node[left] {$\epsilon$} (T);
+                \draw [->] (LX) -- node[below] {$\hat{f}|_{L(X_i \mid i \in I)}$} (L);
+            \end{tikzpicture}
+            \]        
         
+        \end{proof}
         特に，リー環$L$の元の族$\{a_i\}_{i \in I}$を取ると，
         \[
-            \phi(X_i) = a_i
+            f(X_i) = a_i
         \]
-        となるような$\phi$がただ一つ存在する．
+        となるような$f$がただ一つ存在する．
         
         リー環$L$とその元の族$\{a_i\}_{i \in I}$を取る．$F \in L(X_i \mid i \in I)$に対し，
         \[
-            F|_{X_i = a_i} := \phi(F) \in L
+            F|_{X_i = a_i} := f(F) \in L
         \]
         とする．
         $L(X_i \mid i \in I) \supset \{ F_j \}_{j \in J}$で生成されるイデアル$I = \langle F_i \mid i \in I \rangle$は，
@@ -153,24 +189,141 @@
             \]
             を満たすとする．この時hom $h:L \to H$で$h(a_i) = b_i$を満たすものがただ一つ存在する．
         \end{Prop}
+        \begin{proof}
+             $h$は生成元で定義されているから，存在すれば一意的なのは明らか．
+             自由リー環の普遍性により，
+             \[
+                f(X_i) = b_i
+             \]
+             となるhom$f: L(X_i \mid i \in I) \to H$がある．
+             この$f$に関して，
+             \[
+                f(F_j) = 0
+             \]
+             なので，$f(\langle F_j \rangle) = 0$.
+             したがって，
+             \[
+                h: L(X_i \mid i \in I)/\langle F_j \rangle \to H
+             \]
+             を誘導し，実際$h(a_i) = b_i$になっている．
+        \end{proof}
+        
+        少し話が逸れるが（前の章に入れるべきだが），生成元と基本関係式で定義される結合代数に関する同様の補題（普遍写像性質）を示しておく．
+        \begin{Lem}
+            $A$を${a_i}$により生成され，$F_j|_{X_i = a_i}$を基本関係とする結合代数とする．
+            結合代数$B$とその元の族${b_i}$があって，$F_j|_{X_i = b_i}$を満たすとする．
+            この時，結合代数のhom$h:A \to B$であって$h(a_i) = b_i$を満たすものがただ一つ存在する．
+            \[
+                \begin{tikzpicture}[scale = 1.5]
+                    \node (A) {$T(L)/\mathcal{I}$};
+                    \node  at (3,0) (B) {$T(L)/\mathcal{J}$};
+                    \node[below = of A] (L) {$L$}; 
+                    
+                    \draw [->] (A) -- node[above] {$\exists 1 h$}(B);
+                    \draw [->] (L) -- node[below left] {$f$} (A);
+                    \draw [->] (L) -- node[below right] {$g$} (B);
+                \end{tikzpicture}
+            \]
+            ここで, $\mathcal{I} \subset \mathcal{J}$.
+        \end{Lem}
+        \begin{proof}
+            $h$があれば，
+            \[
+                h(F_j|_{X_i = a_i}) = F|_{X_i = b_i}.
+            \]
+            でなくてはならないから，$h:A \to B$を$h(F_j|_{X_i = a_i}) = F|_{X_i = b_i}$で定めて，これがwell-definedな結合代数の準同型であることを示す．
+            $F|_{X_i = b_i}, G|_{X_i = b_i} \in A = T(V)/\mathcal(I)$が
+            $F|_{X_i = b_i} = G|_{X_i = b_i}$なら$F - G \in \mathcal{I}$なので，
+            \[
+                F|_{X_i = b_i} - G|_{X_i = b_i} = (F - G)|_{X_i = b_i} = 0
+            \]
+            がわかる．したがって$h$は矛盾なく定まる．
+            $h$が準同型なのは明らか．
+        \end{proof}
+        
         
         \begin{Prop}
              $L$を$\{a_i\}_{i \in I}$を生成元とし，$F|_{X_j = a_j}$を基本関係とするリー環とする．
-             $F_j \in L(X_i \mid i \inI)$を包含写像で$T(V)$の元とみなそう．このもとで，$\{a_i\}_{i \in I}$を生成元とし，$F|_{X_j = a_j}$を基本関係とする結合代数を$A$とする．
+             $F_j \in L(X_i \mid i \in I)$を包含写像で$T(V)$の元とみなそう．このもとで，$\{\overline{a_i}\}_{i \in I}$を生成元とし，$F|_{X_j = \overline{a_i}}$を基本関係とする結合代数を$A$とする．
              この時，
              \[
                 U(L) \cong A
              \]
         \end{Prop}
-        
-        ここでようやく本題に戻れる．
         \begin{proof}
-            $\sllie_n$が$e_i, f_i, h_i$で生成され，同じ基本関係を満たすことを示せばよい．
+            $A$は$L$と同じ基本関係を満たすから，
+            $\exists f: L \to A$で
+            \[
+                f(a_i) = \overline{a_i}
+            \]
+            となるリー環のhomがある. 
+            $A$が普遍的であることを言えば良い．
+            すなわち，
+            $B$を結合代数，$g:L \to B$をリー環のhomとする時．
+            \[
+                h \circ f = g
+            \]
+            となる結合代数のhom $g:A \to B$がただ一つ存在することを示せばよい．
+             \[
+                \begin{tikzpicture}[scale = 1.5]
+                    \node (A) {$A$};
+                    \node  at (3,0) (B) {$B$};
+                    \node[below = of A] (L) {$L$}; 
+                    
+                    \draw [->] (A) -- node[above] {$\exists 1 h$}(B);
+                    \draw [->] (L) -- node[below left] {$f$} (A);
+                    \draw [->] (L) -- node[below right] {$g$} (B);
+                \end{tikzpicture}
+            \]
+            $h \circ f$と$g$が共にリー環のhomであることはわかっているので，$L$の生成元の上で一致することを確認すれば良い．
+            \begin{align*}
+                &h \circ f = g\\
+                \iff &h(f(a_i)) = g(a_i) \quad (\forall i)\\
+                \iff &h(\overline{a_i}) = g(a_i) \quad (\forall i)
+            \end{align*}
+            $g$はリー環のhomなので，
+            \[
+                F_j|_{X_i = g(a_i)} = 0
+            \]
+            が$B$をリー環, $F_j \in L(X_i \mid i \in I)$と思って成り立つ
+            ($B$を結合代数，$F_j \in T(V)$でなく)(リー環のhomとしての話なので).
+            よって，$F_j|_{X_i = g(a_i)} = 0$は，$B$を結合代数，$F_j \in T(V)$と思っても成り立つ．
+            よって，$h(\overline{a_i}) = g(a_i)$を満たす結合代数のhom
+            \[
+                h: A \to B
+            \]
+            がただ一つ存在する．
         \end{proof}
         
-    \subsection{$A_{r-1}$型の量子群}\\
-        $\alpha_{j}\left(h_{i}\right) := 2 \delta_{i j}-\delta_{i, j+1}-\delta_{i+1, j}$.
+        ここでようやく本題に戻れる．
+        \begin{proof}[Th\ref{main1}'s proof]
+            $\sllie_n$が$e_i, f_i, h_i$で生成され，同じ基本関係を満たすリー環であることを示せばよい．
+            
+            $\sllie_n$の基底として，
+            \begin{align}
+                h_i &= E_{ii} - E_{i+1, i+1}\\
+                e_i &= E_{i,i+1}\\
+                f_i &= E_{i+1, i}
+            \end{align}
+            が取れる．
+            これらがTh\ref{main1}の基本関係を満たすことは，行列計算でわかる．
+            
+            $L$を$E_i, F_i, H_i$を生成元とし，
+            Th\ref{main1}の基本関係を$e$を$E$などで置き変えたもの基本関係とするリー環とする．
+            $\sllie_n$と$L$の間に同型写像を構成しよう．
+            生成元と基本関係で定義された結合代数の普遍性より
+            hom $f:L \to \sllie_n$で，
+            \[
+                f(H_i) = h_i,\, f(E_i) = e_i,\, f(F_i) = f_i
+            \]
+            となるものがただ一つある．
+            この$f$が同型であることを示せば良い．
+            生成元が対応しているので，全射は明らか．
+            
+        \end{proof}
         
+    \subsection{$A_{r-1}$型の量子群}
+        $\alpha_{j}\left(h_{i}\right) := 2 \delta_{i j}-\delta_{i, j+1}-\delta_{i+1, j}$.
         \begin{Def}
             $K = \mathbb{Q}(q)$を一変数有理函数体とする．
             次の生成元と基本関係で定義される$K$上の単位的結合環を$U_{q}(\sllie_r)$をと書き，$A_{r-1}$型量子群と呼ぶ．
