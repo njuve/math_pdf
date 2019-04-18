@@ -131,17 +131,6 @@
             次に存在を示そう．
             $\hat{f}:T(V) \to U(L)$を自然な準同型で定める．
             $\epsilon$は包含写像．
-            すると
-            \[
-                \hat{f}(L(X_i \mid i \in I)) \subset 
-                \hat{L} := \langle\hat{f}(X_i) \mid i \in I \rangle 
-                \subset U(L).
-            \]
-            特に，
-            \[
-                \hat{f}(L(X_i \mid i \in I)) \subset L
-            \]
-            よって，$\hat{f}$を制限すれば良い．
             \[
             \begin{tikzpicture}[scale = 1.5]
                 \node (T) {$T(V)$};
@@ -154,8 +143,18 @@
                 \draw [->] (LX) -- node[left] {$\epsilon$} (T);
                 \draw [->] (LX) -- node[below] {$\hat{f}|_{L(X_i \mid i \in I)}$} (L);
             \end{tikzpicture}
-            \]        
-        
+            \]  
+            すると
+            \[
+                \hat{f}(L(X_i \mid i \in I)) \subset 
+                \hat{L} := \langle\hat{f}(X_i) \mid i \in I \rangle 
+                \subset U(L).
+            \]
+            特に，
+            \[
+                \hat{f}(L(X_i \mid i \in I)) \subset L
+            \]
+            よって，$\hat{f}$を制限すれば良い．
         \end{proof}
         特に，リー環$L$の元の族$\{a_i\}_{i \in I}$を取ると，
         \[
