@@ -1,0 +1,74 @@
+\documentclass[dvipdfmx,autodetect-engine]{article}
+%---------------------package
+\usepackage{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+% ----------------------------- 
+\theoremstyle{definition}
+\newtheorem{Def}{定義}
+\newtheorem{Th}{定理}
+\newtheorem{Prop}{命題}
+\newtheorem{Ex}{例}
+\newtheorem{Cor}{系}
+\newtheorem{Lem}{補題}
+\newtheorem{Prob}{問}
+
+% ------------------------- enumareteで（1）みたいにする
+\renewcommand\labelenumi{(\arabic{enumi})}
+\renewcommand\labelenumii{(\alph{enumii})}
+\renewcommand\labelenumiii{(\roman{enumiii})}
+
+%----------------------------命令定義
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\gl}{gl}
+\DeclareMathOperator{\sllie}{sl}
+\DeclareMathOperator{\sublie}{\mathfrak{a}}
+\DeclareMathOperator{\lie}{\mathfrak{g}}
+\DeclareMathOperator{\cartan}{\mathfrak{h}}
+\DeclareMathOperator{\U}{U}
+
+
+%---------------------------make title
+\title{}
+\author{}
+\date{}
+%-----------------------------document
+\begin{document}
+% \maketitle
+\section{$A^{(1)}_{r-1}$型の量子群}
+    この章ではカッツ・ムーディリー環を定義して，少し基本的なことをやった後で，$A^{(1)_{r-1}}$型の量子群を定義します．
+\subsection{カッツ・ムーディリー環}
+    基本的なアイデアはカルタン行列からリー環を構成すること．
+    \begin{Def}
+        正方行列$A = (a_{ij}) \quad (a_{ij} \in \mathbb{Z})$が
+        \[
+            \begin{cases}
+                a_{ii} = 2 \\
+                a_{ij} \leq 0 \quad (i \neq j) \\
+                a_{ij} = 0 \iff a_{ji} = 0
+            \end{cases}
+        \]
+        を満たす時，(一般)カルタン行列という．
+    \end{Def}
+    
+    \begin{Def}
+        カルタン行列$A = (a_{ij})_{i \leq i \leq r}$の実現とは，
+        ベクトル空間$\mathfrak{h}$と一次独立な元の集合
+        $\Pi=\left\{\alpha_{i}\right\}_{0 \leq i<r} \subset \mathfrak{h}$, 
+        $\Pi^{v}=\left\{h_{j}\right\}_{0 \leq j<r} \subset \mathfrak{h}^{*}$
+        の3つの組$(\mathfrak{H}, \Pi, \Pi^{v})$
+        であって，
+        \[
+            \dim\mathfrak{h} = 2r - rankA,\quad \alpha_j(h_i) = a_{ij}
+        \]
+        を満たすものをいう．
+    \end{Def}
+    
+    
+ \end{document}
