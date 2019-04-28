@@ -1,0 +1,263 @@
+\documentclass[dvipdfmx,autodetect-engine]{article}
+%---------------------package
+\usepackage{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+% ----------------------------- 
+\theoremstyle{definition}
+\newtheorem{Def}{定義}
+\newtheorem{Th}{定理}
+\newtheorem{Prop}{命題}
+\newtheorem{Ex}{例}
+\newtheorem{Cor}{系}
+\newtheorem{Lem}{補題}
+\newtheorem{Prob}{問}
+
+% ------------------------- enumareteで（1）みたいにする
+\renewcommand\labelenumi{(\arabic{enumi})}
+\renewcommand\labelenumii{(\alph{enumii})}
+\renewcommand\labelenumiii{(\roman{enumiii})}
+
+%----------------------------命令定義
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\gl}{gl}
+\DeclareMathOperator{\sllie}{sl}
+\DeclareMathOperator{\sublie}{\mathfrak{a}}
+\DeclareMathOperator{\lie}{\mathfrak{g}}
+\DeclareMathOperator{\cartan}{\mathfrak{h}}
+\DeclareMathOperator{\U}{U}
+
+
+%---------------------------make title
+\title{}
+\author{}
+\date{}
+%-----------------------------document
+\begin{document}
+% \maketitle
+\section{局所可積分加群と結晶基底}
+    4-6章は対称化可能カルタン行列に対して成立するが， $A^{(1)}_{r-1}$型と思って進めます．
+    量子群を考えるときの体は$K = \mathbb{Q}(v)$.
+    
+    この章の目標は結晶基底を定義することです．その為の当面の目標は，柏原作用素を定義することです．
+    
+\subsection{局所可積分加群}
+    量子群はHopf代数です．余積は次のようになっています．
+    \begin{Lem}
+        $\Delta:U_{v} \to U_{v} \otimes U_{v}$を
+        \[
+            \begin{array}{c}
+                {\Delta\left(t_{i}\right)=t_{i} \otimes t_{i}, \quad \Delta\left(v^{d}\right)=v^{d} \otimes v^{d}} \\ {\Delta\left(e_{i}\right)=1 \otimes e_{i}+e_{i} \otimes t_{i}^{-1}} \\ 
+                {\Delta\left(f_{i}\right)=f_{i} \otimes 1+t_{i} \otimes f_{i}}
+            \end{array}
+        \]
+        と定義するとこれは環準同型でwell-defined.
+    \end{Lem}
+    
+    この余積で量子群のテンソル積表現が定義される: 
+    
+    $M, N:$ $U_{v}$-加群，$x \in U_{v}$
+    \[
+        x \cdot (M \otimes N) := \Delta(x)(M \otimes N)
+    \]
+    
+    \begin{Def}
+        $U_{v}$-加群$M$が局所可積分加群:
+        \begin{enumerate}
+            \item 
+                \label{def_int_weight}
+                $M$はウェイト加群をもつ
+                \begin{align*}
+                        P &= \{ \lambda \in H^{*} \mid \lambda(h_i), \lambda(d) \in \mathbb{Z}\}\\
+                        M_{\lambda} 
+                        &= \{ 
+                            m \in M 
+                            \mid
+                            t_im = v^{\lambda(h_i)}m\,
+                            (0 \leq i \leq r),
+                            v^{d}m  = v^{\lambda(d)}m\},\\
+                        M &= \bigoplus_{\lambda \in P} M_{\lambda}
+                \end{align*}
+            \item 
+                \label{def_int_weight_dim}
+                $\dim M_{\lambda} \leq \infty$
+            \item 
+                \label{def_int_nil}
+                $U_{v}(L_i) := \langle e_i, f_i, h_i \rangle \subset U_{v}$に対し，$\each m \in M$は有限次元$U_{v}(L_i)$-部分加群に含まれる．
+                $(\iff \dim U_{v}m \leq \infty)$
+        \end{enumerate}
+    \end{Def}
+    (\ref{def_int_nil})から(\ref{def_int_nil}'): $e_{i}^{k} = f_{i}^{l} = 0,\,(\exists k, l \geq 0)$がわかる ．
+    また(\ref{def_int_weight})と(\ref{def_int_nil}')から(\ref{def_int_nil})がわかる．
+    
+    大切な例は最高ウェイト加群(これは後で)．
+    \begin{Ex}
+        $r \geq 2$, $M=K^{2} \otimes K\left[\xi, \xi^{-1}\right]$とする．
+        $U_{v}$からの作用を次のように定義すると$M$は局所可積分加群.
+        \begin{align*}
+            e_{0}=
+                \left[ 
+                    \begin{array}{ll}
+                        {0} & {0} \\ 
+                        {1} & {0}
+                    \end{array}
+                \right]
+                \otimes
+                \xi,
+            &\quad
+            f_{0}=
+                \left[
+                    \begin{array}{ll}
+                        {0} & {1} \\
+                        {0} & {0}
+                    \end{array}
+                \right]
+                \otimes
+                \xi^{-1}\\
+            e_{1}=
+                \left[ 
+                    \begin{array}{ll}
+                        {0} & {1} \\ 
+                        {0} & {0}
+                    \end{array}
+                \right]
+                \otimes
+                1,
+            &\quad
+            f_{1}=
+                \left[
+                    \begin{array}{ll}
+                        {0} & {0} \\
+                        {1} & {0}
+                    \end{array}
+                \right]
+                \otimes
+                1\\
+            t_{0}=
+                \left[
+                    \begin{array}{cc}
+                        {v^{-1}} & {0} \\
+                        {0} & {v}
+                    \end{array}
+                \right] 
+                \otimes
+                1, 
+            &\quad 
+            t_{1}=
+                \left[ 
+                    \begin{array}{cc}
+                        {v} & {0} \\
+                        {0} & {v^{-1}}
+                    \end{array}
+                \right]
+                \otimes
+                1\\
+            v^{d}\left(m \otimes \xi^{j}\right)
+            &=v^{j} m \otimes \xi^{j}
+        \end{align*}
+    \end{Ex}
+    \begin{Ex}
+        $M$: 局所可積分加群
+        $e_i, t_i$の作用を$-e_i, -t_i$に変えると$M$は局所可積分加群でなくなる．
+    \end{Ex}
+\subsection{柏原作用素の為の準備}
+    $U_{v}(\sllie_2)$が基本的な道具になるのでそれをやる．
+    まずは$U_{v}(\sllie_2)$の有限次元表現の分類．
+    
+    \begin{Prop}
+        $U_{v}(\sllie_2)$の有限次元表現既約表現の同値類の完全代表系は以下の通り．ただしここで
+        \[
+            [k] := \frac{v^{k} - v^{-k}}{v - v^{-1}}.
+        \]
+        
+        $V_{l}^{\pm} 
+        := \langle m_0^{\pm}, \dots, m_{l-1}^{\pm}\rangle$: 
+        \begin{align*}
+        e &= \pm
+            \begin{bmatrix}
+                0 & [l] & \\
+                  &\cdots&\cdots&\\
+                  &      & 0 & [1]\\
+                  &      &   & 0 
+            \end{bmatrix}\\
+        f &= 
+            \begin{bmatrix}
+                0 &  & \\
+                [l]  &0&&\\
+                  & \cdots  & \cdots & \\
+                  &      & [l]  & 0 
+            \end{bmatrix}\\
+        t &= \pm
+            \begin{bmatrix}
+                v^{l} &   \\
+                  & v^{l-2}\\
+                  & \cdots  & \cdots & \\
+                  &     &   & v^{-l} 
+            \end{bmatrix}
+        \end{align*}
+    \end{Prop}
+    \begin{Ex}
+       $l = 2$:
+       \[
+            V_2^{+} = <m_0, m_1, m_2>
+       \]
+       \begin{align*}
+           e = \pm
+                &\begin{bmatrix}
+                    0 & [2] & 0\\
+                    0 &  0  & [1]\\
+                    0 &  0  & 0 
+                \end{bmatrix}\\
+            f = 
+                &\begin{bmatrix}
+                    0 & 0 & 0\\
+                    [2] &0&0\\
+                     0 & [1] & 0\\
+                \end{bmatrix}\\
+            t = \pm
+                &\begin{bmatrix}
+                    v^{2} & 0 &0  \\
+                    0 & v^{0} & 0\\
+                    0  & 0 & v^{-2} 
+                \end{bmatrix}
+        \end{align*}
+        \begin{align*}
+            (m_0, m_1, m_2)e &= ([2]m_1, [1]m_2, 0)\\
+            (m_0, m_1, m_2)f &= (0, [1]m_1, [2]m_2)\\
+            (m_0, m_1, m_2)t &= (v^2m_0, v^0m_1, v^{-2}m_2)\\
+        \end{align*}
+    \end{Ex}
+    一般に上の作用は
+    \begin{align*}
+        \begin{cases}
+            em_i = [l-i]m_{i+1}\\
+            fm_i = [i]m_{i-1}\\
+            tm_i = v^{l-i}m_i
+        \end{cases}
+    \end{align*}
+    ともかける．
+    \begin{proof}
+        \begin{Lem}
+            $V_l$に対し$e,f$の作用は冪零．
+        \end{Lem}
+    \end{proof}
+    
+    \begin{Def}
+        量子カシミール元$C$:
+        \[
+            C := fe + \frac{vt - v^{-1}t^{-1}}{(v - v^{-1})^2}
+        \]
+        $C$は, $e, f, t$と可換．また$V_{l}^{\pm}$上で互いに異なる値
+        \[
+            \pm \frac{[l+1]}{v - v^{-1}}
+        \]
+        をとる．
+    \end{Def}
+\subsection{結晶基底の定義}
+\end{document}
