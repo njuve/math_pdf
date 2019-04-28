@@ -42,7 +42,23 @@
 \begin{document}
 % \maketitle
 \section{$A^{(1)}_{r-1}$型の量子群}
-    この章ではカッツ・ムーディリー環を定義して，少し基本的なことをやった後で，$A^{(1)_{r-1}}$型の量子群を定義します．
+    この章ではカッツ・ムーディリー環を定義して，少し基本的なことをやった後で，$A^{(1)}_{r-1}$型の量子群を定義します．
+    まず．このノートで扱う$A^{(1)}_{r-1}$型とは，$\sllie$の変形．
+    \[
+        L = \sllie(n, \mathbb{C}) \oplus \mathbb{C}[t, t^{-1}] \oplus \mathbb{C}c \oplus \mathbb{C}d
+    \]
+    ここでリー積は
+    \begin{align*}
+        \left[X \otimes t^{n}, Y \otimes t^{m}\right]
+        &=[X, Y] \otimes t^{n+m}+n(t r X Y) \delta_{0, n+m} c\\
+        \left[c, X \otimes t^{n}\right]
+        &=0 \\
+        \left[d, X \otimes t^{n}\right]
+        &=n X \otimes t^{n}, \\
+        [c, d]
+        &=0
+    \end{align*}
+    これの生成元と基本関係による表示のためにKac-Moodyリー環をまずやります．
 \subsection{カッツ・ムーディリー環}
     基本的なアイデアはカルタン行列からリー環を構成すること．
     \begin{Def}
@@ -58,17 +74,215 @@
     \end{Def}
     
     \begin{Def}
-        カルタン行列$A = (a_{ij})_{i \leq i \leq r}$の実現とは，
-        ベクトル空間$\mathfrak{h}$と一次独立な元の集合
-        $\Pi=\left\{\alpha_{i}\right\}_{0 \leq i<r} \subset \mathfrak{h}$, 
-        $\Pi^{v}=\left\{h_{j}\right\}_{0 \leq j<r} \subset \mathfrak{h}^{*}$
-        の3つの組$(\mathfrak{H}, \Pi, \Pi^{v})$
-        であって，
-        \[
-            \dim\mathfrak{h} = 2r - rankA,\quad \alpha_j(h_i) = a_{ij}
-        \]
-        を満たすものをいう．
+        カルタン行列$A = (a_{ij})_{i \leq i \leq r}$の実現$(\mathfrak{h}, \Pi, \Pi^{v})$$\overset{def}{\iff}$，
+        \begin{enumerate}
+            \item $\mathfrak{h}$:ベクトル空間
+            \item $\Pi=\left\{\alpha_{i}\right\}_{0 \leq i<r} \subset \mathfrak{h}$:一次独立
+            \item $\Pi^{v}=\left\{h_{j}\right\}_{0 \leq j<r} \subset \mathfrak{h}^{*}$:一次独立
+            \item $\dim\mathfrak{h} = 2r - rankA$
+            \item $\alpha_j(h_i) = a_{ij}$
+        \end{enumerate}
     \end{Def}
     
+    このノートで考えるのは，$A^{(1)}_{r-1}$型のカルタン行列．
+    例えば，
+    \begin{Ex}
+        $r = 2$:
+        \[
+            \begin{pmatrix}
+                2  & -2 \\
+                -2 & 2
+            \end{pmatrix}
+        \]
+        $r \geq 3$:
+        \[
+            \begin{pmatrix}
+                2  & -1 & \cdots & \cdots & -1\\
+                -1 & 2  & -1 & \cdots & -1\\
+                \cdots & \cdots  & \cdots & \cdots & \cdots\\
+                -1 & \cdots  & \cdots & -1 & 2\\
+            \end{pmatrix}
+        \]
+        $r \geq 3$の時，このカルタン行列の実現を考える．
+        \begin{align*}
+            \mathfrak{h} &= (\bigoplus \mathbb{C}h_i) \oplus \mathbb{C}d\\
+            \mathfrak{h}^* &= (\bigoplus \mathbb{C}\alpha_i) \oplus \mathbb{C}\Lambda_0\\
+            \Pi &= \left\{\alpha_{i}\right\}_{0 \leq i \leq n-1}\\ 
+            \Pi^{\vee} &= \left\{h_{j}\right\}_{0 \leq j \leq r-1}
+        \end{align*}
+        ただし，ここで$\alpha_i$と$h_i$は次を満たす$\mathfrak{h}$と$\mathfrak{h}^*$の基底．
+        \begin{align*}
+            \alpha_{i}\left(h_{j}\right)=
+            \left\{
+                \begin{array}{cc}{2} & {(i=j)} \\ 
+                    {-1} & {(i-j \equiv \pm 1(\bmod r))} \\ 
+                    {0} & {(\text{else})}
+                \end{array}\right\\
+            \alpha_{i}(d)=\delta_{i 0}, \quad \Lambda_{0}\left(h_{j}\right)=\delta_{0 j}, \quad 
+            \Lambda_{0}(d)=0
+        \end{align*}
+    \end{Ex}
     
+    \begin{Def}
+        $\Tilde{L}(V)$を次の生成元と基本関係で定義されるリー環とする．
+        
+        生成元:
+        \[
+            (\bigoplus_{i = 0}^{r-1} \mathbb{C}e_i) \oplus \mathfrak{h} \oplus (\bigoplus_{i = 0}^{r-1} \mathbb{C}f_i)
+        \]
+        
+        基本関係:
+        \begin{align*}
+            \left[h, e_{i}\right]&=\alpha_{i}(h) e_{i} \\
+            \left[h, f_{i}\right]&=-\alpha_{i}(h) f_{i} \\
+            \left[e_{i}, f_{j}\right]&=\delta_{i j} h_{i} \\
+            \left[h, h^{\prime}\right]&=0 \quad \left(h, h^{\prime} \in \mathfrak{h}\right)
+        \end{align*}
+        
+        $\mathcal{R}_{max}$をイデアル$\Tilde{L}(V) \supset \mathcal{R}$で$\mathfrak{h}\cap\mathcal{R} = 0$を満たすもののうち最大のものとする．
+        
+        この時，$\Tilde{L}(V)/\mathcal{R}_{max}$をカルタン行列$A$の定義するKac-Moodyリー環と呼び，$L(A)$で表す．
+        
+        $\Tilde{L}(V)$や$L(A)$の$ad(\mathfrak{h})$に関する非ゼロ同時固有値をルートと呼び，同時固有分解をルート分解と呼ぶ．
+    \end{Def}
+    
+    \begin{Th}
+        簡単のため，$A^{(1)_{r-1}}$型$(r \geq 3)$を考える．
+        $L(A)$は次の生成元と基本関係で定義されるリー環．
+        
+        生成元:
+        \[
+            (\bigoplus_{i = 0}^{r-1} \mathbb{C}e_i) \oplus \mathfrak{h} \oplus (\bigoplus_{i = 0}^{r-1} \mathbb{C}f_i)
+        \]
+        
+        基本関係:
+        \begin{align*}
+            \left[h, e_{i}\right]&=\alpha_{i}(h) e_{i} \\
+            \left[h, f_{i}\right]&=-\alpha_{i}(h) f_{i} \\
+            \left[e_{i}, f_{j}\right]&=\delta_{i j} h_{i} \\
+            \left[h, h^{\prime}\right]&=0 \quad \left(h, h^{\prime} \in \mathfrak{h}\right)\\
+            [e_i[e_i, e_j]] &= 0 \quad (i - j \mod 1)\\
+            [e_i, e_j] &= 0 \quad (\text{else})\\
+            [f_i[f_i, f_j]] &= 0 \quad (i - j \mod 1)\\
+            [f_i, f_j] &= 0 \quad (\text{else})\\
+        \end{align*}
+    \end{Th}
+    
+    \begin{Prop}
+        $L(A)$のなかで上の関係式は全て成立．
+    \end{Prop}
+    
+    \begin{Prop}
+        \begin{enumerate}
+            \item
+                \begin{align*}
+                    A&: \text{カルタン行列}\\
+                    &L(A)\\
+                    V_+ &= \bigoplus_{i=1}^{r-1}\mathfrak{C}e_i\\
+                    V_- &= \bigoplus_{i=1}^{r-1}\mathfrak{C}f_i\\
+                    L(V)&:=(V := V_+ \oplus \mathfrak{h} \oplus V_- \text{で生成される自由リー環})\\
+                    &\Tilde{L}(V)
+                \end{align*}
+                この時，三角分解が成立．
+                \[
+                    \Tilde{L}(V) = L(V_+) \oplus \mathfrak{h} \oplus L(V_-)
+                \]
+                各直和成分はルート分解を持ち，各ルートは，
+                $L(V_+)$上では
+                    $\left(\oplus Z_{ \geq 0} \alpha_{i}\right) \backslash\{0\}$の元.
+                $\mathfrak{h}$上では
+                    $0$.
+                $L(V_-)$上では
+                    $\left(\oplus Z_{ \leq 0} \alpha_{i}\right) \backslash\{0\}$の元.    
+            
+            \item $\mathcal{R}_{max}$は存在して一意．
+            \item 
+                $\mathcal{R}_{\pm} := \mathcal{R}_{max} \cap V_{\pm}$とすると, 
+                \[
+                    g(A)=\left(g\left(V_{+}\right) / R_{+}\right) \oplus h \oplus\left(g\left(V_{-}\right) / R_{-}\right)
+                \]
+            \item
+                $L(A)$のルート分解を考えると，同時固有値が$0$になるのは$\mathcal{h}$の元に限る．また
+                \begin{align*}
+                    \Delta &:= \text{ルート系}\\
+                    \Delta_+ &:= \Delta \cap \left(\oplus Z_{ \geq 0} \alpha_{i}\right)\\
+                    \Delta_- &:= \Delta \cap \left(\oplus Z_{ \leq 0} \alpha_{i}\right)\\
+                \end{align*}
+                とすると，
+                \[
+                    \Delta = \Delta_+ \cup \Delta_-
+                \]
+        \end{enumerate}
+    \end{Prop}
+    
+    \begin{Prop}
+       $\exists (L \supset \mathfrak{h}, \{e_i, f_i\}, \Pi = \{\alpha_i\} \subset \mathfrak{h}^*, \Pi^{v} = \{h_i\} \subset \mathfrak{h})$ s.t.,
+       \begin{enumerate}
+           \item $L = \langle e_{0}, f_{0}, \dots, e_{r-1}, f_{r-1}, \mathfrak{h}\rangle$
+           \item 
+                \begin{align*}
+                    \left[e_{i}, f_{j}\right]&=\delta_{i j} h_{i},\\
+                    \left[h, e_{i}\right]&=\alpha_{i}(h) e_{i},\\
+                    \left[h, f_{i}\right]&=-\alpha_{i}(h) f_{i}
+                \end{align*}
+            \item $(\mathfrak{h}, \Pi, \Pi^{v})$はカルタン行列$A$の実現.
+            \item $L$の中で$\mathcal{R}\cap\mathfrak{h} = 0$となるイデアルは$\mathcal{R} = 0$
+       \end{enumerate}
+       この時，$L$はカルタン行列$A$から定まるKac-Moddyリー環$L(A)$と同型．
+    \end{Prop}
+    
+\section{$A^{(1)}_{r-1}$型の量子群}
+    次の生成元と基本関係で定義される$\mathbb{Q}(v)$上の単位的結合環を$A^{(1)}_{r-1}\, (r \geq 3)$型の量子群という
+
+    生成元:
+        \[
+            t_i^{\pm1}, v^{\pm1}, f_i, e_i
+        \]
+        
+        基本関係:
+            \begin{align*}
+                    t_{i} e_{j} t_{i}^{-1}
+                    =v^{\alpha_{j}\left(h_{i}\right)} e_{j}
+                    &,\quad 
+                    t_{i} f_{j} t_{i}^{-1}
+                    =v^{-\alpha_{j}\left(h_{i}\right)} f_{j}\\
+                    v^{d} e_{j} v^{d}^{-1}
+                    =v^{\delta_{0j}} e_{j}
+                    &,\quad 
+                    v_{d} f_{j} v_{d}^{-1}
+                    =v^{-\delta_{0j}} f_{j}\\
+                    \left[e_{i}, f_{j}\right]
+                    &=\delta_{i j}
+                    \frac{t_{i}-t_{i}^{-1}}{v-v^{-1}}\\
+                    \left[v^{d}, t_{i}\right]
+                    = 0
+                    &, \quad
+                    [t_{i}, t_{j}] 
+                    = 0,\\
+                    v_{d} v_{d}^{-1}
+                    = v_{d}^{-1} v_{d}
+                    = 1
+                    &, \quad
+                    t_{i} t_{i}^{-1}
+                    = t_{i}^{-1} t_{i}
+                    = 1\\
+                    {e_{i}^{2} e_{j}
+                    -\left(v+v^{-1}\right) e_{i} e_{j} e_{i}
+                    &+e_{j} e_{i}^{2}
+                    = 0,(i-j=\pm 1)} \\
+                    {e_{i} e_{j}
+                    &=
+                    e_{j} e_{i}(\text{else})}\\
+                    {f_{i}^{2} f_{j}
+                    -(v+v^{-1}) f_{i} f_{j} f_{i}
+                    &+f_{j} f_{i}^{2}
+                    = 0,(i-j=\pm 1)} \\
+                    {f_{i} f_{j}
+                    &=f_{j} f_{i}(\text{else})}
+            \end{align*}
+            $r = 2$の時は，セールの関係式が
+            \begin{align*}
+                e_{i}^{3} e_{j}-\left(v^{2}+1+v^{-2}\right) e_{i}^{2} e_{j} e_{i}+\left(v^{2}+1+v^{-2}\right) e_{i} e_{j} e_{i}^{2}-e_{i} e_{i}^{3}=0(i \neq j)\\
+                f_{i}^{3} f_{j}-\left(v^{2}+1+v^{-2}\right) f_{i}^{2} f_{j} f_{i}+\left(v^{2}+1+v^{-2}\right) f_{i} f_{j} f_{i}^{2}-f_{j} f_{i}^{3}=0(i \neq j)
+            \end{align*}
  \end{document}
